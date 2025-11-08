@@ -1,0 +1,464 @@
+import React, { useState } from 'react';
+import { Menu, X, ChevronRight, FileText, Briefcase, Mail, Home } from 'lucide-react';
+
+const ScribesPenWireframe = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const pages = [
+    { id: 'home', name: '홈', icon: Home },
+    { id: 'service', name: '서비스', icon: FileText },
+    { id: 'portfolio', name: '프로젝트', icon: Briefcase },
+    { id: 'contact', name: '문의하기', icon: Mail }
+  ];
+
+  const NavBar = () => (
+    <nav className="bg-zinc-900 text-amber-100 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{backgroundColor: '#A67C52'}}>
+              <FileText className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold">기록자의 펜</h1>
+              <p className="text-xs text-amber-200">The Scribe's Pen</p>
+            </div>
+          </div>
+          
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-8">
+            {pages.map(page => (
+              <button
+                key={page.id}
+                onClick={() => setCurrentPage(page.id)}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  currentPage === page.id
+                    ? 'text-zinc-900'
+                    : 'hover:bg-zinc-800'
+                }`}
+                style={currentPage === page.id ? {backgroundColor: '#A67C52'} : {}}
+              >
+                {page.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden pb-4">
+            {pages.map(page => (
+              <button
+                key={page.id}
+                onClick={() => {
+                  setCurrentPage(page.id);
+                  setMobileMenuOpen(false);
+                }}
+                className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium ${
+                  currentPage === page.id
+                    ? 'text-zinc-900'
+                    : 'hover:bg-zinc-800'
+                }`}
+                style={currentPage === page.id ? {backgroundColor: '#A67C52'} : {}}
+              >
+                {page.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+
+  const HomePage = () => (
+    <div>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-zinc-900 via-zinc-800 to-stone-900 text-amber-50 py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-block px-4 py-1 rounded-full text-sm mb-6" style={{backgroundColor: 'rgba(166, 124, 82, 0.3)', border: '1px solid rgba(166, 124, 82, 0.5)', color: '#D4A574'}}>
+                문화유산 브랜딩 전문가
+              </div>
+              <h2 className="text-5xl font-bold mb-6 leading-tight">
+                지나치기 쉬운 건물을,<br/>
+                <span style={{color: '#D4A574'}}>잊을 수 없는 유산</span>으로
+              </h2>
+              <p className="text-xl text-amber-100/80 mb-8">
+                시간의 무게를 담은 글로<br/>
+                근현대사 공간의 가치를 되살립니다
+              </p>
+              <button className="px-8 py-4 rounded-lg font-bold text-lg text-white transition-all shadow-lg flex items-center space-x-2" style={{backgroundColor: '#A67C52'}} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#8B6F47'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#A67C52'}>
+                <span>프로젝트 시작하기</span>
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="bg-zinc-800/50 rounded-lg p-8 backdrop-blur" style={{border: '2px solid rgba(166, 124, 82, 0.4)'}}>
+              <div className="aspect-video bg-zinc-700/50 rounded-lg flex items-center justify-center" style={{color: '#D4A574'}}>
+                [히어로 이미지]<br/>구 동양척식주식회사 대전지점
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Value Proposition */}
+      <section className="py-20 px-4" style={{backgroundColor: '#F5E6D3'}}>
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-3xl font-bold text-center text-zinc-900 mb-4">
+            왜 기록자의 펜인가?
+          </h3>
+          <p className="text-center text-zinc-600 mb-12 max-w-2xl mx-auto">
+            근현대사 공간이 가진 '평범한 외관'을 넘어, 젊은 세대가 공감할 수 있는 스토리로 재탄생시킵니다
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: '공간 브랜딩',
+                desc: '건축물의 역사와 정체성을 담은 슬로건과 컨셉 개발'
+              },
+              {
+                title: '전시 기획',
+                desc: '방문자의 시선을 사로잡는 캡션 및 설명 패널 작성'
+              },
+              {
+                title: '콘텐츠 제작',
+                desc: '소셜미디어와 웹사이트를 위한 매력적인 스토리텔링'
+              }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white p-8 rounded-lg shadow-md" style={{borderTop: '4px solid #A67C52'}}>
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{backgroundColor: '#A67C52'}}>
+                  <FileText className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="text-xl font-bold text-zinc-900 mb-3">{item.title}</h4>
+                <p className="text-zinc-600">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-zinc-900 text-amber-50 py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-3xl font-bold mb-6">
+            당신의 공간에 역사를 새기세요
+          </h3>
+          <p className="text-amber-100/80 mb-8 text-lg">
+            대전 근현대사 문화유산 브랜딩 전문가, 김서현과 함께합니다
+          </p>
+          <button className="px-10 py-4 rounded-lg font-bold text-lg text-white transition-all" style={{backgroundColor: '#A67C52'}} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#8B6F47'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#A67C52'}>
+            무료 상담 신청
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+
+  const ServicePage = () => (
+    <div className="py-16 px-4" style={{backgroundColor: '#F5E6D3'}}>
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold text-zinc-900 mb-4">서비스 소개</h2>
+        <p className="text-zinc-600 text-lg mb-12">
+          근현대사 공간의 가치를 극대화하는 전문 브랜딩 서비스
+        </p>
+
+        <div className="space-y-8">
+          {[
+            {
+              title: '1. 공간 컨셉 & 슬로건 개발',
+              desc: '건축물의 역사적 배경과 현대적 의미를 융합한 브랜드 아이덴티티 구축',
+              details: ['역사 리서치 및 분석', '핵심 메시지 도출', '슬로건 및 캐치프레이즈 작성']
+            },
+            {
+              title: '2. 전시 캡션 & 설명 패널',
+              desc: '방문객의 이해와 공감을 이끌어내는 전시 텍스트 기획 및 작성',
+              details: ['전시 동선 기획', '캡션 작성 (한/영)', '인포그래픽 텍스트']
+            },
+            {
+              title: '3. 디지털 콘텐츠',
+              desc: '웹사이트, SNS, 브로슈어를 위한 매력적인 스토리텔링 콘텐츠',
+              details: ['웹사이트 소개 콘텐츠', 'SNS 포스팅 기획', '홍보 브로슈어 작성']
+            }
+          ].map((service, idx) => (
+            <div key={idx} className="bg-white p-8 rounded-lg shadow-md" style={{borderLeft: '4px solid #A67C52'}}>
+              <h3 className="text-2xl font-bold text-zinc-900 mb-3">{service.title}</h3>
+              <p className="text-zinc-600 mb-4">{service.desc}</p>
+              <ul className="space-y-2">
+                {service.details.map((detail, i) => (
+                  <li key={i} className="flex items-center text-zinc-700">
+                    <ChevronRight className="w-4 h-4 mr-2" style={{color: '#A67C52'}} />
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const PortfolioPage = () => {
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    const projects = [
+      {
+        id: 1,
+        title: '구 동양척식주식회사 대전지점',
+        subtitle: '브랜딩 & 전시 기획',
+        tag: '완료',
+        concept: '침묵하는 기록: 역사의 펜 끝이 멈춘 자리',
+        problem: '국가유산임에도 불구하고, 외관의 평범함과 설명 방식의 경직성으로 인해 관람객들이 역사적 무게감을 체감하지 못함',
+        slogan: '"지나치지 마십시오. 당신이 서 있는 이 자리가, 한때 이 땅의 운명을 쥐었던 곳입니다."',
+        copyExample: '"이곳은 상가가 아닙니다. 1920년, 대전의 근대적 약탈이 시작된 기록의 공간입니다."',
+        results: [
+          '온라인 채널 바이럴 콘텐츠 조회수 45% 증가',
+          '방문객 평균 체류 시간 15분 연장',
+          '젊은 세대(20-30대) 방문 비율 30% 상승'
+        ]
+      },
+      {
+        id: 2,
+        title: '대전 근현대사 박물관',
+        subtitle: '전시 캡션 작성',
+        tag: '진행중'
+      },
+      {
+        id: 3,
+        title: '○○ 근대건축물',
+        subtitle: '공간 컨셉 개발',
+        tag: '예정'
+      },
+      {
+        id: 4,
+        title: '역사문화거리 조성',
+        subtitle: '스토리텔링 콘텐츠',
+        tag: '예정'
+      }
+    ];
+
+    return (
+      <div className="py-16 px-4" style={{background: 'linear-gradient(to bottom, #F5E6D3, white)'}}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-zinc-900 mb-4">프로젝트 사례</h2>
+          <p className="text-zinc-600 text-lg mb-12">
+            기록자의 펜이 만든 변화를 확인하세요
+          </p>
+
+          {/* 프로젝트 상세 모달 */}
+          {selectedProject && (
+            <div className="mb-12 bg-white rounded-lg shadow-xl p-8" style={{border: '2px solid #A67C52'}}>
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-3" style={{backgroundColor: '#F5E6D3', color: '#8B6F47'}}>
+                    {selectedProject.tag}
+                  </span>
+                  <h3 className="text-3xl font-bold text-zinc-900">{selectedProject.title}</h3>
+                </div>
+                <button 
+                  onClick={() => setSelectedProject(null)}
+                  className="text-zinc-400 hover:text-zinc-600"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {/* 컨셉 */}
+                <div className="bg-gradient-to-r from-zinc-900 to-zinc-800 p-6 rounded-lg" style={{color: '#D4A574'}}>
+                  <h4 className="text-sm font-bold mb-2" style={{color: '#A67C52'}}>프로젝트 컨셉</h4>
+                  <p className="text-xl font-bold italic">"{selectedProject.concept}"</p>
+                </div>
+
+                {/* 문제 정의 */}
+                <div>
+                  <h4 className="text-lg font-bold text-zinc-900 mb-3">📌 핵심 문제</h4>
+                  <p className="text-zinc-700 leading-relaxed p-4 rounded-lg" style={{backgroundColor: '#F5E6D3', borderLeft: '4px solid #A67C52'}}>
+                    {selectedProject.problem}
+                  </p>
+                </div>
+
+                {/* 슬로건 */}
+                <div>
+                  <h4 className="text-lg font-bold text-zinc-900 mb-3">💬 개발 슬로건</h4>
+                  <blockquote className="text-xl text-zinc-800 italic pl-6 py-4" style={{borderLeft: '4px solid #A67C52', backgroundColor: '#F5E6D3'}}>
+                    {selectedProject.slogan}
+                  </blockquote>
+                </div>
+
+                {/* 카피 예시 */}
+                <div>
+                  <h4 className="text-lg font-bold text-zinc-900 mb-3">✍️ 핵심 카피 예시</h4>
+                  <div className="bg-zinc-900 p-6 rounded-lg" style={{color: '#D4A574'}}>
+                    <p className="text-lg leading-relaxed">
+                      {selectedProject.copyExample}
+                    </p>
+                  </div>
+                </div>
+
+                {/* 성과 */}
+                <div>
+                  <h4 className="text-lg font-bold text-zinc-900 mb-3">📈 프로젝트 성과</h4>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {selectedProject.results.map((result, idx) => (
+                      <div key={idx} className="text-white p-5 rounded-lg shadow-md" style={{background: 'linear-gradient(135deg, #A67C52, #8B6F47)'}}>
+                        <div className="text-3xl font-bold mb-2">
+                          {idx === 0 ? '45%' : idx === 1 ? '+15분' : '30%'}
+                        </div>
+                        <p className="text-sm" style={{color: '#F5E6D3'}}>{result}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 프로젝트 그리드 */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((project) => (
+              <div 
+                key={project.id} 
+                onClick={() => project.concept && setSelectedProject(project)}
+                className={`bg-white rounded-lg shadow-md overflow-hidden border border-zinc-200 hover:shadow-xl transition-all ${
+                  project.concept ? 'cursor-pointer hover:scale-105' : ''
+                }`}
+              >
+                <div className="aspect-video bg-zinc-200 flex items-center justify-center text-zinc-400">
+                  [프로젝트 이미지]
+                </div>
+                <div className="p-6">
+                  <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold mb-3`} style={
+                    project.tag === '완료' ? {backgroundColor: '#F5E6D3', color: '#8B6F47'} :
+                    project.tag === '진행중' ? {backgroundColor: '#DBEAFE', color: '#1E40AF'} :
+                    {backgroundColor: '#F4F4F5', color: '#52525B'}
+                  }>
+                    {project.tag}
+                  </span>
+                  <h3 className="text-xl font-bold text-zinc-900 mb-2">{project.title}</h3>
+                  <p className="text-zinc-600 mb-3">{project.subtitle}</p>
+                  {project.concept && (
+                    <button className="font-semibold text-sm flex items-center" style={{color: '#8B6F47'}}>
+                      <span>자세히 보기</span>
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const ContactPage = () => (
+    <div className="py-16 px-4" style={{backgroundColor: '#F5E6D3'}}>
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-4xl font-bold text-zinc-900 mb-4 text-center">문의하기</h2>
+        <p className="text-zinc-600 text-lg mb-12 text-center">
+          프로젝트 상담은 언제든 환영합니다
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h3 className="text-2xl font-bold text-zinc-900 mb-6">상담 신청</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-zinc-700 mb-1">이름</label>
+                <input type="text" className="w-full px-4 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2" style={{focusRingColor: '#A67C52'}} placeholder="홍길동" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-zinc-700 mb-1">이메일</label>
+                <input type="email" className="w-full px-4 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2" style={{focusRingColor: '#A67C52'}} placeholder="example@email.com" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-zinc-700 mb-1">프로젝트 유형</label>
+                <select className="w-full px-4 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2" style={{focusRingColor: '#A67C52'}}>
+                  <option>공간 브랜딩</option>
+                  <option>전시 기획</option>
+                  <option>콘텐츠 제작</option>
+                  <option>기타</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-zinc-700 mb-1">문의 내용</label>
+                <textarea rows={4} className="w-full px-4 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2" style={{focusRingColor: '#A67C52'}} placeholder="프로젝트에 대해 자세히 알려주세요"></textarea>
+              </div>
+              <button onClick={(e) => e.preventDefault()} className="w-full text-white py-3 rounded-md font-bold transition-colors" style={{backgroundColor: '#A67C52'}} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#8B6F47'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#A67C52'}>
+                상담 신청하기
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-zinc-900 text-amber-100 p-8 rounded-lg">
+              <h3 className="text-xl font-bold mb-4">제공자 정보</h3>
+              <div className="space-y-3 text-amber-100/80">
+                <p><strong style={{color: '#D4A574'}}>이름:</strong> 김서현</p>
+                <p><strong style={{color: '#D4A574'}}>핵심 역량:</strong> 뛰어난 글쓰기 및 커뮤니케이션 능력</p>
+                <p><strong style={{color: '#D4A574'}}>전문 분야:</strong> 근현대사 문화유산 브랜딩</p>
+                <p><strong style={{color: '#D4A574'}}>활동 지역:</strong> 대전 및 충청권</p>
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-md" style={{border: '2px solid rgba(166, 124, 82, 0.3)'}}>
+              <h3 className="text-xl font-bold text-zinc-900 mb-4">프로젝트 진행 절차</h3>
+              <ol className="space-y-3">
+                {['상담 신청 및 미팅', '현장 답사 및 리서치', '컨셉 제안 및 수정', '콘텐츠 작성 및 납품'].map((step, idx) => (
+                  <li key={idx} className="flex items-start">
+                    <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3" style={{backgroundColor: '#A67C52'}}>
+                      {idx + 1}
+                    </span>
+                    <span className="text-zinc-700">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-stone-100">
+      <NavBar />
+      {currentPage === 'home' && <HomePage />}
+      {currentPage === 'service' && <ServicePage />}
+      {currentPage === 'portfolio' && <PortfolioPage />}
+      {currentPage === 'contact' && <ContactPage />}
+      
+      {/* Footer */}
+      <footer className="bg-zinc-900 text-amber-100 py-8 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-sm">&copy; 2025 기록자의 펜 (The Scribe's Pen). All rights reserved.</p>
+          <p className="text-xs text-amber-200/60 mt-2">
+            "지나치기 쉬운 건물을, 잊을 수 없는 유산으로 만듭니다."
+          </p>
+        </div>
+      </footer>
+
+      {/* Design Note */}
+      <div className="fixed bottom-4 right-4 bg-white p-4 rounded-lg shadow-lg border-2 border-stone-500 max-w-xs">
+        <p className="text-xs text-zinc-600">
+          <strong className="text-stone-700">🎨 디자인 노트:</strong><br/>
+          크래프트지 느낌의 베이지/브라운 톤으로 차분하고 빈티지한 분위기 연출. 상단 네비게이션으로 4개 페이지 전환 가능합니다.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default ScribesPenWireframe;
